@@ -3,6 +3,11 @@ import TodoInput from "./TodoInput";
 import TodoList from "./TodoList";
 
 function App() {
+  // define the list of to todos using useState
+  const [todos,setTodos]=useState([
+    'Do HW3',
+    'Go to the gym',
+    'Attend meeting'])
   // State for Dark Mode
   const [darkMode, setDarkMode] = useState(false);
 
@@ -26,7 +31,11 @@ function App() {
       localStorage.setItem("theme", "light");
     }
   };
-
+  function handleAddTodos(newTodo){
+    setTodos(previtems=>{
+      return [...previtems,newTodo]
+    })
+  }
   return (
     <>
       <header>
@@ -34,8 +43,8 @@ function App() {
           {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
         </button>
       </header>
-      <TodoInput />
-      <TodoList />
+      <TodoInput handleAddTodos={handleAddTodos}/>
+      <TodoList todos={todos}/>
     </>
   );
 }
