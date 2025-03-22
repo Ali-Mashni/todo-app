@@ -11,6 +11,8 @@ function App() {
   // State for Dark Mode
   const [darkMode, setDarkMode] = useState(false);
 
+  const [todo, setTodo] = useState("");
+
   // Load theme from localStorage
   useEffect(() => {
     if (localStorage.getItem("theme") === "dark") {
@@ -31,11 +33,27 @@ function App() {
       localStorage.setItem("theme", "light");
     }
   };
+
   function handleAddTodos(newTodo){
     setTodos(previtems=>{
       return [...previtems,newTodo]
     })
   }
+
+  function handleDeleteTodo(index) {
+    const newTodoList = todos.filter((todo, todoIndex) => {
+      return todoIndex !== index
+    })
+    
+    setTodos(newTodoList)
+  }
+
+  function handleEditTodo(index) {
+    const valueToBeEdited = todos[index]
+    setTodo(valueToBeEdited)
+    handleDeleteTodo(index)
+  }
+
   return (
     <>
       <header>
@@ -43,8 +61,8 @@ function App() {
           {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
         </button>
       </header>
-      <TodoInput handleAddTodos={handleAddTodos}/>
-      <TodoList todos={todos}/>
+      <TodoInput todo={todo} setTodo ={setTodo} handleAddTodos={handleAddTodos}/>
+      <TodoList handleEditTodo={handleEditTodo} handleDeleteTodo={handleDeleteTodo} todos={todos}/>
     </>
   );
 }
