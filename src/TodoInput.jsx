@@ -1,8 +1,7 @@
-import { useState } from "react"
+
 
 export default function TodoInput(props){
-    const {handleAddTodos}=props
-    const [todo,setTodo]=useState("")
+    const {handleAddTodos,todo,setTodo}=props
     function handleChangeInput(event){
         setTodo(event.target.value)
     }
