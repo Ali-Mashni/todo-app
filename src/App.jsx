@@ -3,55 +3,53 @@ import TodoInput from "./TodoInput";
 import TodoList from "./TodoList";
 
 function App() {
-  // define the list of to todos using useState
-  const [todos,setTodos]=useState([
-    'Do HW3',
-    'Go to the gym',
-    'Attend meeting'])
-  // State for Dark Mode
-  const [darkMode, setDarkMode] = useState(false);
+  // State for Todos
+  const [todos, setTodos] = useState([
+    "Do HW3",
+    "Go to the gym",
+    "Attend meeting",
+  ]);
 
+  // State for Dark Mode (default to dark mode)
+  const [darkMode, setDarkMode] = useState(() => {
+    // Check localStorage for a saved theme preference
+    const savedTheme = localStorage.getItem("theme");
+    // Default to dark mode if no preference found
+    return savedTheme ? savedTheme === "dark" : true;
+  });
+
+  // State for Todo Input
   const [todo, setTodo] = useState("");
 
-  // Load theme from localStorage
+  // Apply the theme on initial load
   useEffect(() => {
-    if (localStorage.getItem("theme") === "dark") {
+    if (darkMode) {
       document.body.classList.add("dark-mode");
-      setDarkMode(true);
+    } else {
+      document.body.classList.remove("dark-mode");
     }
-  }, []);
+    // Save the theme preference
+    localStorage.setItem("theme", darkMode ? "dark" : "light");
+  }, [darkMode]);
 
   // Toggle Dark Mode
   const toggleDarkMode = () => {
-    document.body.classList.toggle("dark-mode");
-    setDarkMode(!darkMode);
-
-    // Save user preference
-    if (document.body.classList.contains("dark-mode")) {
-      localStorage.setItem("theme", "dark");
-    } else {
-      localStorage.setItem("theme", "light");
-    }
+    setDarkMode((prevMode) => !prevMode);
   };
 
-  function handleAddTodos(newTodo){
-    setTodos(previtems=>{
-      return [...previtems,newTodo]
-    })
+  function handleAddTodos(newTodo) {
+    setTodos((prevItems) => [...prevItems, newTodo]);
   }
 
   function handleDeleteTodo(index) {
-    const newTodoList = todos.filter((todo, todoIndex) => {
-      return todoIndex !== index
-    })
-    
-    setTodos(newTodoList)
+    const newTodoList = todos.filter((_, todoIndex) => todoIndex !== index);
+    setTodos(newTodoList);
   }
 
   function handleEditTodo(index) {
-    const valueToBeEdited = todos[index]
-    setTodo(valueToBeEdited)
-    handleDeleteTodo(index)
+    const valueToBeEdited = todos[index];
+    setTodo(valueToBeEdited);
+    handleDeleteTodo(index);
   }
 
   return (
@@ -61,8 +59,12 @@ function App() {
           {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
         </button>
       </header>
-      <TodoInput todo={todo} setTodo ={setTodo} handleAddTodos={handleAddTodos}/>
-      <TodoList handleEditTodo={handleEditTodo} handleDeleteTodo={handleDeleteTodo} todos={todos}/>
+      <TodoInput todo={todo} setTodo={setTodo} handleAddTodos={handleAddTodos} />
+      <TodoList
+        handleEditTodo={handleEditTodo}
+        handleDeleteTodo={handleDeleteTodo}
+        todos={todos}
+      />
     </>
   );
 }
