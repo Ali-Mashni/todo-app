@@ -4,11 +4,7 @@ import TodoList from "./TodoList";
 
 function App() {
   // State for Todos
-  const [todos, setTodos] = useState([
-    "Do HW3",
-    "Go to the gym",
-    "Attend meeting",
-  ]);
+  const [todos, setTodos] = useState([]);
 
   // State for Dark Mode (default to dark mode)
   const [darkMode, setDarkMode] = useState(() => {
