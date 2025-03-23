@@ -2,6 +2,11 @@
 
 🚀 A simple and interactive **React-powered Todo List App** for managing daily tasks efficiently.
 
+## 🌐 Live Demo
+![Todo List App Screenshot](./src/assets/Screenshot.png)
+
+Check out the deployed app here: [Todo List App on GitHub Pages](https://ali-mashni.github.io/todo-app/)
+
 ## ✨ Features
 - ✅ **Add & Remove Tasks** – Easily manage your to-do list.
 - 🌙 **Dark Mode Toggle** – Switch between light and dark themes.
