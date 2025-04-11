@@ -34,3 +34,12 @@ npm install
 # Start the development server
 npm run dev  # If using Vite
 npm start    # If using Create React App
+```
+
+## Project Structure
+
+```sh
+src/
+├── App.jsx
+├── main.jsx
+├── index.css
